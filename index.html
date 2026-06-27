@@ -6,36 +6,25 @@
     <title>🍑 SUNABU - SUSUN BUAH JADI SALDO DANA 🍉</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* MENCEGAH PEMAIN MEMBLOK/COPY TEKS LAYAR */
         * { -webkit-user-select: none; -ms-user-select: none; user-select: none; }
-        /* MENGECUALIKAN KOLOM KETIK AGAR TETAP BISA DIISI */
         input, textarea { -webkit-user-select: auto !important; user-select: auto !important; }
-
         body { font-family: 'Fredoka', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1e3c72, #2a5298, #20bf6b, #009432); background-size: 400% 400%; animation: gradasiBergerak 15s ease infinite; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; position: relative; overflow: hidden; }
         @keyframes gradasiBergerak { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
         .hujan-buah { position: absolute; top: -50px; user-select: none; pointer-events: none; font-size: 24px; animation: jatuh linear infinite; opacity: 0.15; z-index: 1; }
         @keyframes jatuh { 0% { transform: translateY(0) rotate(0deg); opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
-
         .ombak-pantai { position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; background: rgba(255, 255, 255, 0.1); border-radius: 50% 50% 0 0 / 15px 15px 0 0; animation: ombakBergerak 4s ease-in-out infinite alternate; pointer-events: none; z-index: 2; }
         @keyframes ombakBergerak { 0% { transform: translateY(10px) scaleY(0.9); } 100% { transform: translateY(0px) scaleY(1.1); } }
-
         .container { background-color: rgba(14, 28, 54, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 25px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); text-align: center; width: 360px; border: 4px solid #20bf6b; box-sizing: border-box; position: relative; min-height: 560px; display: flex; flex-direction: column; justify-content: center; color: #ffffff; z-index: 3; }
-        
         .btn-pojok-kanan { position: absolute; top: 15px; right: 15px; font-size: 22px; background: none; border: none; cursor: pointer; z-index: 5; }
         .btn-pojok-kiri { position: absolute; top: 15px; left: 15px; font-size: 22px; background: none; border: none; cursor: pointer; z-index: 5; }
-        
         h1 { color: #feca57; margin: 0 0 5px 0; font-size: 38px; text-shadow: 0px 4px 10px rgba(254,202,87,0.4); letter-spacing: 2px;}
         .sub-judul { color: #ff9ff3; font-weight: bold; font-size: 14px; margin-bottom: 15px; display: block; letter-spacing: 1px;}
-        
         .kartu-profil { background: rgba(255, 255, 255, 0.1); border: 2px solid #20bf6b; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; margin-bottom: 20px; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.1); }
         .input-nama-transparan { font-family: 'Fredoka', sans-serif; background: transparent; border: none; color: #fff; font-weight: 600; font-size: 16px; width: 55%; outline: none; border-bottom: 1px dashed rgba(255,255,255,0.4); }
         .input-nama-transparan::placeholder { color: rgba(255,255,255,0.4); }
         .profil-skor { color: #feca57; font-size: 15px; font-weight: 700; }
-
         .menu-utama-btn { font-family: 'Fredoka', sans-serif; font-size: 18px; padding: 14px; border: none; border-radius: 14px; cursor: pointer; font-weight: 700; color: white; transition: 0.2s; box-shadow: 0 6px 0 #009432, 0 10px 15px rgba(0,0,0,0.3); width: 100%; margin-bottom: 15px; background-color: #20bf6b; }
         .menu-utama-btn:active { transform: translateY(6px); box-shadow: 0 0 0 #009432; }
-        
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
         .btn-menu-grid { font-family: 'Fredoka', sans-serif; font-size: 14px; padding: 12px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; color: white; transition: 0.2s; box-shadow: 0 4px 0 rgba(0,0,0,0.2); }
         .btn-menu-grid:active { transform: translateY(4px); box-shadow: 0 0 0 rgba(0,0,0,0.2); }
@@ -50,7 +39,6 @@
         input[type="text"].tebak-input::placeholder { color: rgba(255,255,255,0.6); font-weight: 400; font-size: 16px;}
         .btn-tebak { font-family: 'Fredoka', sans-serif; font-size: 20px; padding: 12px; background-color: #20bf6b; color: white; border: none; border-radius: 14px; cursor: pointer; margin-top: 15px; width: 100%; font-weight: 700; box-shadow: 0 6px 0 #009432; transition: 0.2s;}
         .btn-tebak:active { transform: translateY(6px); box-shadow: 0 0 0 #009432; }
-        
         .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(14, 28, 54, 0.95); border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; z-index: 10; }
         .modal-content { background: #222f3e; padding: 20px; border-radius: 18px; width: 88%; border: 3px solid #0abde3; text-align: center; max-height: 90%; overflow-y: auto; box-sizing: border-box; }
         .item-toko { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.08); padding: 12px; border-radius: 12px; margin-bottom: 8px; border-left: 5px solid #feca57; text-align: left; transition: 0.2s; }
@@ -98,7 +86,7 @@
                 <h3 style="color:#ff6b6b; margin: 0 0 10px 0; text-align: center;">📜 ATURAN MAIN</h3>
                 <div class="teks-aturan">
                     <h4>1. CARA BERMAIN</h4><ul><li>Susun huruf acak jadi Nama Buah dalam 10 detik.</li><li>1 Ronde = 3 Soal. Benar = +2 Poin.</li></ul>
-                    <h4>2. KUOTA & PREMIUM</h4><ul><li><b>Standar:</b> 10 Ronde/hari + 5x iklan.</li><li><b>Premium:</b> 50 Ronde/hari, Poin 3x Lipat, + 15x iklan.</li></ul>
+                    <h4>2. KUOTA & PREMIUM</h4><ul><li><b>Standar:</b> 10 Ronde/hari + 5x iklan.</li><li><b>Premium:</b> 50 Ronde/hari, Poin 5x Lipat, + 15x iklan.</li></ul>
                     <h4>3. SYARAT HADIAH</h4><ul><li>Tukar poin dengan DANA, ShopeePay, Pulsa.</li><li><b>Promo Rp 300</b> berlaku 1x seumur hidup.</li><li>Limit: <b>Maksimal 2x / minggu</b>.</li></ul>
                     <h4>4. KONFIRMASI PENGIRIMAN</h4><ul><li>Dikirim massal setiap <b>Minggu ke-2 & ke-4</b>. Harap sabar.</li></ul>
                     <h4 style="color:#ee5253;">5. ANTI-CHEAT</h4><ul><li>Pakai Bot/Clone App = <b>BANNED & Poin Hangus</b>.</li></ul>
@@ -110,7 +98,7 @@
         <div id="layar-premium" class="modal hidden">
             <div class="modal-content" style="border-color: #feca57;">
                 <h3 style="color:#feca57; margin: 0 0 5px 0;">✨ PREMIUM PASS ✨</h3>
-                <p style="font-size: 13px; color: #c8d6e5; line-height: 1.4; margin-bottom: 15px;">Dapatkan Kuota 50 Ronde/Hari, Poin x3 Lipat, Bebas Iklan, & Ekstra +15 Ronde via Iklan!</p>
+                <p style="font-size: 13px; color: #c8d6e5; line-height: 1.4; margin-bottom: 15px;">Dapatkan Kuota 50 Ronde/Hari, Poin 5x Lipat, Bebas Iklan, & Ekstra +15 Ronde via Iklan!</p>
                 <div id="premium-status-text" style="font-size: 14px; font-weight:bold; color: #ff6b6b; margin-bottom: 10px;">Status: Belum Aktif</div>
                 <div id="area-aktivasi-premium">
                     <input type="text" id="input-kode-premium" placeholder="TULIS DISINI .." style="font-family: 'Fredoka', sans-serif; font-size: 15px; padding: 10px; width: 100%; border-radius: 10px; border: 2px solid #feca57; background: rgba(0,0,0,0.4); color: white; text-align: center; margin-bottom: 10px; box-sizing: border-box; text-transform: uppercase; outline: none;">
@@ -162,9 +150,8 @@
 
         <div id="layar-ranking" class="modal hidden"><div class="modal-content"><h3 style="color:#9b59b6; margin: 0;">🏆 PAPAN PERINGKAT</h3><div style="background: rgba(155, 89, 182, 0.2); border: 1px dashed #9b59b6; border-radius: 12px; padding: 10px; margin: 15px 0; font-size: 12px; text-align: left; line-height: 1.5;"><span style="color: #feca57; font-weight: bold; display: block; margin-bottom: 4px;">🎁 ALOKASI HADIAH:</span>• Rank 1: <b>Rp 25.000</b><br>• Rank 2-4: <b>Rp 10.000</b><br>• Rank 5-9: <b>Rp 5.000</b><br><span style="color: #0abde3; display: block; margin-top: 6px; font-style: italic;">⚠️ Dikirim tiap Minggu ke-2 & ke-4.</span></div><table class="tabel-ranking"><thead><tr><th>Rank</th><th>Nama Pemain</th><th>Skor</th></tr></thead><tbody id="konten-tabel-ranking"></tbody></table><button class="btn-kembali-outline" onclick="tutupRanking()">❌ KEMBALI</button></div></div>
         <div id="layar-keluar-total" class="modal hidden"><div class="modal-content" style="background:#222f3e; border-color:#ff6b6b;"><h2 style="color:#ff6b6b;">👋 Terima Kasih!</h2><p style="color:#c8d6e5; margin-bottom: 20px;">Kamu telah menutup game SUNABU.</p><div style="font-size: 50px;">🍓👧🏻👦🏻🍉</div></div></div>
-    </div>
-    <script>
-    // KODE SAPU JAGAT (PEMBERSIH DATA BETA TEST HANYA SEKALI JALAN)
+                        </div>
+                                                                                          <script>
     if (localStorage.getItem('sunabu_versi_rilis') !== 'FINAL') {
         localStorage.clear();
         localStorage.setItem('sunabu_versi_rilis', 'FINAL');
@@ -174,7 +161,6 @@
     const buahEmoji = ["🍎", "🍌", "🍉", "🍇", "🍓", "🍒", "🥭", "🍍", "🥝"];
     let isPremium = false;
     
-    // SISTEM MEMORI SKOR & SENSOR HARI INI
     let skorTotal = parseInt(localStorage.getItem('sunabu_skor_total')) || 0;
     let tanggalHariIni = new Date().toDateString();
     let tanggalTersimpan = localStorage.getItem('sunabu_tanggal_terakhir');
@@ -216,46 +202,128 @@
             document.getElementById('premium-status-text').innerHTML = "Status: <span style='color:#ff6b6b;'>KEDALUWARSA (Beli Lagi)</span>"; document.getElementById('area-aktivasi-premium').classList.remove('hidden');
         } updatePapanSkorUtama();
     }
-    function aktivasiPremium() { let kodeInput = document.getElementById('input-kode-premium').value.trim().toUpperCase(); if (kodeInput.startsWith("SNB-") && kodeInput.endsWith("-PRO")) { let kodeTerpakai = JSON.parse(localStorage.getItem('sunabu_used_codes') || "[]"); if (kodeTerpakai.includes(kodeInput)) return alert("❌ Kode ini sudah dipakai!"); localStorage.setItem('sunabu_premium_expiry', (Date.now() + (30 * 24 * 60 * 60 * 1000)).toString()); kodeTerpakai.push(kodeInput); localStorage.setItem('sunabu_used_codes', JSON.stringify(kodeTerpakai)); isPremium = true; kuotaRondeHarian = 50; sisaIklanTambahanHariIni = 15; alert("✨ KODE VALID! Premium Pass Aktif 30 Hari!"); cekStatusPremiumLokal(); tutupPopUpPremium(); } else alert("❌ Kode salah / tidak valid!"); }
-
-    function updateVisualBuffStatus() { let cont = document.getElementById('gameplay-buff-status'), html = ""; if (isPremium) html += `<div class="buff-item" style="color:#feca57;"><span>✨ Status:</span><span>PREMIUM PASS</span></div>`; if (sisaRondePena > 0) html += `<div class="buff-item"><span>✒️ Pena:</span><span>Sisa ${sisaRondePena} Soal</span></div>`; if (sisaWaktuEsKrim > 0) html += `<div class="buff-item"><span>🍦 Waktu:</span><span>${sisaWaktuEsKrim}s</span></div>`; if (sisaRondeMultiplier > 0) html += `<div class="buff-item"><span>🧪 x2 Poin:</span><span>Sisa ${sisaRondeMultiplier} Soal</span></div>`; if (html) { cont.innerHTML = html; cont.classList.remove('hidden'); } else cont.classList.add('hidden'); }
+    
+    // 🔥 AKTIVASI PREMIUM + BONUS 15.000 POIN 🔥
+    function aktivasiPremium() { 
+        let kodeInput = document.getElementById('input-kode-premium').value.trim().toUpperCase(); 
+        if (kodeInput.startsWith("SNB-") && kodeInput.endsWith("-PRO")) { 
+            let kodeTerpakai = JSON.parse(localStorage.getItem('sunabu_used_codes') || "[]"); 
+            if (kodeTerpakai.includes(kodeInput)) return alert("❌ Kode ini sudah dipakai!"); 
+            
+            localStorage.setItem('sunabu_premium_expiry', (Date.now() + (30 * 24 * 60 * 60 * 1000)).toString()); 
+            kodeTerpakai.push(kodeInput); 
+            localStorage.setItem('sunabu_used_codes', JSON.stringify(kodeTerpakai)); 
+            
+            isPremium = true; 
+            kuotaRondeHarian = 50; 
+            sisaIklanTambahanHariIni = 15; 
+            
+            // Tambahkan Bonus
+            skorTotal += 15000;
+            updatePapanSkorUtama();
+            
+            alert("✨ KODE VALID! Premium Pass Aktif 30 Hari! +15.000 Poin Bonus!"); 
+            cekStatusPremiumLokal(); 
+            tutupPopUpPremium(); 
+        } else alert("❌ Kode salah / tidak valid!"); 
+    }
+                                                                                                  function updateVisualBuffStatus() { let cont = document.getElementById('gameplay-buff-status'), html = ""; if (isPremium) html += `<div class="buff-item" style="color:#feca57;"><span>✨ Status:</span><span>PREMIUM PASS</span></div>`; if (sisaRondePena > 0) html += `<div class="buff-item"><span>✒️ Pena:</span><span>Sisa ${sisaRondePena} Soal</span></div>`; if (sisaWaktuEsKrim > 0) html += `<div class="buff-item"><span>🍦 Waktu:</span><span>${sisaWaktuEsKrim}s</span></div>`; if (sisaRondeMultiplier > 0) html += `<div class="buff-item"><span>🧪 x2 Poin:</span><span>Sisa ${sisaRondeMultiplier} Soal</span></div>`; if (html) { cont.innerHTML = html; cont.classList.remove('hidden'); } else cont.classList.add('hidden'); }
     function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if (audioCtx.state === 'suspended') audioCtx.resume(); } function startBGM() { initAudio(); if (bgmInterval) clearInterval(bgmInterval); bgmInterval = setInterval(() => { if (!audioMuted) { let note = (modeBGM === "SANTAI" ? melodiSantai : melodiFun)[bgmNoteIndex % 8]; if (note > 0) playSoundBiasa(note, modeBGM === "SANTAI" ? 'sine' : 'triangle', 0.2); bgmNoteIndex++; } }, tempoBGM); }
     function playSuaraMeriah() { if (audioMuted) return; initAudio(); let bs = audioCtx.sampleRate * 1.5, buf = audioCtx.createBuffer(1, bs, audioCtx.sampleRate), d = buf.getChannelData(0); for (let i = 0; i < bs; i++) d[i] = Math.random() * 2 - 1; for (let j = 0; j < 4; j++) { let n = audioCtx.createBufferSource(); n.buffer = buf; let f = audioCtx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 1000 + (j * 200); let g = audioCtx.createGain(); g.gain.setValueAtTime(0.15, audioCtx.currentTime); g.connect(audioCtx.destination); f.connect(g); n.connect(f); n.start(); } }
     function playSoundBiasa(fq, ty, dr) { if (audioMuted) return; initAudio(); try { let o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.type = ty; o.frequency.value = fq; g.gain.setValueAtTime(0.15, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dr); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + dr); } catch (e) {} }
     function acakHuruf(k) { let h = k.split(""); for (let i = h.length - 1; i > 0; i--) { let j = Math.floor(Math.random() * (i + 1)); [h[i], h[j]] = [h[j], h[i]]; } return h.join("") === k ? acakHuruf(k) : h.join(" - "); }
 
     function mulaiGameBaru() { initAudio(); if (kuotaRondeHarian <= 0) return document.getElementById('layar-menu').classList.add('hidden'), document.getElementById('layar-kuotaHabis').classList.remove('hidden'); kuotaRondeHarian--; skorSesiIni = 0; jumlahSoalTerjawab = 0; nomorSoalGlobal = 1; document.getElementById('layar-menu').classList.add('hidden'); document.getElementById('layar-gameplay').classList.remove('hidden'); modeBGM = "FUN"; tempoBGM = 320; startBGM(); mainkanKataBaru(); }
-    function mainkanKataBaru() { if (jumlahSoalTerjawab >= 3) return tampilkanLayarHasil3Soal(); updateVisualBuffStatus(); document.getElementById('judul-ronde').innerText = `Ronde ${Math.ceil(nomorSoalGlobal / 3)}`; kataAsli = bankKata[Math.floor(Math.random() * bankKata.length)]; document.getElementById('kata-acak').innerText = acakHuruf(kataAsli); document.getElementById('jawaban-user').value = ""; document.getElementById('bantuan-pena').innerText = sisaRondePena > 0 ? `✒️ Huruf Pertama: [ ${kataAsli[0]} ]` : ""; setTimeout(() => document.getElementById('jawaban-user').focus(), 50); sisaWaktu = sisaWaktuEsKrim > 0 ? 15.0 : 10.0; document.getElementById('timer').innerText = `Waktu: ${sisaWaktu.toFixed(1)}s`; clearInterval(intervalTimer); intervalTimer = setInterval(() => { sisaWaktu -= 0.1; document.getElementById('timer').innerText = `Waktu: ${sisaWaktu.toFixed(1)}s`; if (sisaWaktu <= 0) { playSoundBiasa(150, 'sawtooth', 0.3); sisaRondePena > 0 && sisaRondePena--; sisaRondeMultiplier > 0 && sisaRondeMultiplier--; jumlahSoalTerjawab++; nomorSoalGlobal++; mainkanKataBaru(); } }, 100); }
-    function cekJawaban() { clearInterval(intervalTimer); let j = document.getElementById('jawaban-user').value.trim().toUpperCase(); if (j === kataAsli) { playSoundBiasa(523.25, 'sine', 0.15); skorSesiIni += sisaRondeMultiplier > 0 ? 4 : 2; } else playSoundBiasa(150, 'sawtooth', 0.3); sisaRondePena > 0 && sisaRondePena--; sisaRondeMultiplier > 0 && sisaRondeMultiplier--; jumlahSoalTerjawab++; nomorSoalGlobal++; mainkanKataBaru(); }
-    function tampilkanLayarHasil3Soal() { clearInterval(intervalTimer); document.getElementById('layar-gameplay').classList.add('hidden'); document.getElementById('layar-hasil').classList.remove('hidden'); let rs = Math.ceil((nomorSoalGlobal - 1) / 3); document.getElementById('judul-hasil').innerText = `🎉 Ronde ${rs} Selesai!`; if (isPremium) { document.getElementById('skor-ronde-ini').innerText = `Poin Sesi Ini: +${skorSesiIni} (x3 = +${skorSesiIni * 3})`; document.getElementById('skor-total-akumulasi').innerText = `Total Skor: ${skorTotal + (skorSesiIni * 3)} Poin`; document.getElementById('area-tombol-hasil').innerHTML = `<button class="btn-tebak" style="background:#20bf6b; margin-bottom:12px;" onclick="eksekusiLanjutGame(true)">🚀 LANJUTKAN (AUTO 3X)</button><button class="btn-kembali-outline" onclick="kembaliKeMenu()">🚪 MAIN MENU</button>`; } else { document.getElementById('skor-ronde-ini').innerText = `Poin Sesi Ini: +${skorSesiIni}`; document.getElementById('skor-total-akumulasi').innerText = `Total Skor: ${skorTotal + skorSesiIni} Poin`; document.getElementById('area-tombol-hasil').innerHTML = `<button class="btn-tebak" style="background:#ff6b6b; margin-bottom:12px;" onclick="gandakanSkorMassa()">📺 3X LIPAT SKOR VIA ADS</button><button class="btn-tebak" style="background:#20bf6b; margin-bottom:12px;" onclick="eksekusiLanjutGame(false)">🚀 LANJUTKAN NORMAL</button><button class="btn-kembali-outline" onclick="kembaliKeMenu()">🚪 MAIN MENU</button>`; } playSuaraMeriah(); }
-    // --- KODE REWARDED ADS & IKLAN OTOMATIS (SMARTLINK) ---
+    
+    function mainkanKataBaru() { 
+        if (jumlahSoalTerjawab >= 3) return tampilkanLayarHasil3Soal(); 
+        updateVisualBuffStatus(); 
+        document.getElementById('judul-ronde').innerText = `Ronde ${Math.ceil(nomorSoalGlobal / 3)}`; 
+        kataAsli = bankKata[Math.floor(Math.random() * bankKata.length)]; 
+        document.getElementById('kata-acak').innerText = acakHuruf(kataAsli); 
+        document.getElementById('jawaban-user').value = ""; 
+        document.getElementById('bantuan-pena').innerText = sisaRondePena > 0 ? `✒️ Huruf Pertama: [ ${kataAsli[0]} ]` : ""; 
+        setTimeout(() => document.getElementById('jawaban-user').focus(), 50); 
+        sisaWaktu = sisaWaktuEsKrim > 0 ? 15.0 : 10.0; 
+        document.getElementById('timer').innerText = `Waktu: ${sisaWaktu.toFixed(1)}s`; 
+        clearInterval(intervalTimer); 
+        intervalTimer = setInterval(() => { 
+            sisaWaktu -= 0.1; 
+            document.getElementById('timer').innerText = `Waktu: ${sisaWaktu.toFixed(1)}s`; 
+            if (sisaWaktu <= 0) { 
+                playSoundBiasa(150, 'sawtooth', 0.3); 
+                sisaRondePena > 0 && sisaRondePena--; 
+                sisaRondeMultiplier > 0 && sisaRondeMultiplier--; 
+                jumlahSoalTerjawab++; 
+                nomorSoalGlobal++; 
+                mainkanKataBaru(); 
+            } 
+        }, 100); 
+    }
+
+    // 🔥 SISTEM REAL-TIME SAVE + MULTIPLIER 5X PREMIUM 🔥
+    function cekJawaban() { 
+        clearInterval(intervalTimer); 
+        let j = document.getElementById('jawaban-user').value.trim().toUpperCase(); 
+        if (j === kataAsli) { 
+            playSoundBiasa(523.25, 'sine', 0.15); 
+            // 5X Multiplier untuk Premium
+            let basePoin = sisaRondeMultiplier > 0 ? 4 : 2;
+            let poinDidapat = isPremium ? (basePoin * 5) : basePoin;
+            
+            skorSesiIni += poinDidapat; 
+            skorTotal += poinDidapat; 
+            updatePapanSkorUtama(); 
+        } else {
+            playSoundBiasa(150, 'sawtooth', 0.3); 
+        }
+        
+        sisaRondePena > 0 && sisaRondePena--; 
+        sisaRondeMultiplier > 0 && sisaRondeMultiplier--; 
+        jumlahSoalTerjawab++; 
+        nomorSoalGlobal++; 
+        mainkanKataBaru(); 
+    }
+
+    function tampilkanLayarHasil3Soal() { 
+        clearInterval(intervalTimer); 
+        document.getElementById('layar-gameplay').classList.add('hidden'); 
+        document.getElementById('layar-hasil').classList.remove('hidden'); 
+        let rs = Math.ceil((nomorSoalGlobal - 1) / 3); 
+        document.getElementById('judul-hasil').innerText = `🎉 Ronde ${rs} Selesai!`; 
+        
+        if (isPremium) { 
+            document.getElementById('skor-ronde-ini').innerText = `Poin Sesi Ini: +${skorSesiIni}`; 
+            document.getElementById('skor-total-akumulasi').innerText = `Total Skor: ${skorTotal} Poin`; 
+            document.getElementById('area-tombol-hasil').innerHTML = `<button class="btn-tebak" style="background:#20bf6b; margin-bottom:12px;" onclick="eksekusiLanjutGame(false)">🚀 LANJUTKAN</button><button class="btn-kembali-outline" onclick="kembaliKeMenu()">🚪 MAIN MENU</button>`; 
+        } else { 
+            document.getElementById('skor-ronde-ini').innerText = `Poin Sesi Ini: +${skorSesiIni}`; 
+            document.getElementById('skor-total-akumulasi').innerText = `Total Skor: ${skorTotal} Poin`; 
+            document.getElementById('area-tombol-hasil').innerHTML = `<button class="btn-tebak" style="background:#ff6b6b; margin-bottom:12px;" onclick="gandakanSkorMassa()">📺 3X LIPAT SKOR VIA ADS</button><button class="btn-tebak" style="background:#20bf6b; margin-bottom:12px;" onclick="eksekusiLanjutGame(false)">🚀 LANJUTKAN NORMAL</button><button class="btn-kembali-outline" onclick="kembaliKeMenu()">🚪 MAIN MENU</button>`; 
+        } 
+        playSuaraMeriah(); 
+    }
+    
     function gandakanSkorMassa() { 
-        // Buka iklan lewat tombol 3X
         window.open('https://www.effectivecpmnetwork.com/wad0jt99sb?key=fbbdd3be190497eb5d88d36388664a71', '_blank');
         alert("📺 [Iklan Sukses]\nPoin dikali 3x!"); 
         eksekusiLanjutGame(true); 
     }
 
     function eksekusiLanjutGame(pakaiMulti) { 
-        skorSesiIni = pakaiMulti ? skorSesiIni * 3 : skorSesiIni; 
-        skorTotal += skorSesiIni; 
+        if (pakaiMulti) { skorTotal += (skorSesiIni * 2); } // Base poin sudah masuk, tambah bonus 2x
         updatePapanSkorUtama(); 
         let rs = Math.ceil((nomorSoalGlobal - 1) / 3); 
-        jumlahSoalTerjawab = 0; 
-        skorSesiIni = 0; 
+        jumlahSoalTerjawab = 0; skorSesiIni = 0; 
         document.getElementById('layar-hasil').classList.add('hidden'); 
         
-        // SISTEM IKLAN PAKSA (Tiap Ronde 6)
         if (rs % 6 === 0 && !isPremium) { 
             document.getElementById('layar-iklan-paksa').classList.remove('hidden'); 
-            let h = 6; 
-            document.getElementById('angka-iklan').innerText = h; 
+            let h = 6; document.getElementById('angka-iklan').innerText = h; 
             let iv = setInterval(() => { 
-                h--; 
-                document.getElementById('angka-iklan').innerText = h; 
+                h--; document.getElementById('angka-iklan').innerText = h; 
                 if (h <= 0) { 
                     clearInterval(iv); 
-                    // Otomatis buka iklan Smartlink setelah hitungan mundur
                     window.open('https://www.effectivecpmnetwork.com/wad0jt99sb?key=fbbdd3be190497eb5d88d36388664a71', '_blank');
                     document.getElementById('layar-iklan-paksa').classList.add('hidden'); 
                     rs % 10 === 0 ? mulaiJedaIstirahatNapas() : kembaliMasukGameplayAktif(); 
@@ -264,56 +332,59 @@
         } else if (rs % 10 === 0) mulaiJedaIstirahatNapas(); 
         else kembaliMasukGameplayAktif(); 
     }
-    // --------------------------------------------------------
 
     function mulaiJedaIstirahatNapas() { modeBGM = "SANTAI"; tempoBGM = 450; startBGM(); document.getElementById('layar-istirahat').classList.remove('hidden'); let h = 15; document.getElementById('angka-istirahat').innerText = h; let iv = setInterval(() => { h--; document.getElementById('angka-istirahat').innerText = h; if (h <= 0) { clearInterval(iv); document.getElementById('layar-istirahat').classList.add('hidden'); modeBGM = "FUN"; tempoBGM = 320; startBGM(); kembaliMasukGameplayAktif(); } }, 1000); }
     function kembaliMasukGameplayAktif() { if (kuotaRondeHarian <= 0) { document.getElementById('layar-gameplay').classList.add('hidden'); document.getElementById('layar-kuotaHabis').classList.remove('hidden'); updatePapanSkorUtama(); return; } kuotaRondeHarian--; updatePapanSkorUtama(); document.getElementById('layar-gameplay').classList.remove('hidden'); document.getElementById('btn-cont').disabled = false; document.getElementById('btn-cont').style.opacity = "1"; mainkanKataBaru(); }
-    function continueGame() { initAudio(); if (kuotaRondeHarian <= 0) { document.getElementById('layar-kuotaHabis').classList.remove('hidden'); updatePapanSkorUtama(); return; } kuotaRondeHarian--; updatePapanSkorUtama(); jumlahSoalTerjawab = 0; skorSesiIni = 0; document.getElementById('layar-menu').classList.add('hidden'); document.getElementById('layar-gameplay').classList.remove('hidden'); modeBGM = "FUN"; tempoBGM = 320; startBGM(); mainkanKataBaru(); }
-    function kembaliKeMenu() { clearInterval(intervalTimer); if (!document.getElementById('layar-hasil').classList.contains('hidden')) { skorTotal += isPremium ? skorSesiIni * 3 : skorSesiIni; jumlahSoalTerjawab = 0; skorSesiIni = 0; } document.getElementById('layar-hasil').classList.add('hidden'); document.getElementById('layar-gameplay').classList.add('hidden'); document.getElementById('layar-kuotaHabis').classList.add('hidden'); document.getElementById('layar-menu').classList.remove('hidden'); updatePapanSkorUtama(); modeBGM = "SANTAI"; tempoBGM = 450; startBGM(); }
+    function continueGame() { initAudio(); if (kuotaRondeHarian <= 0) { document.getElementById('layar-kuotaHabis').classList.remove('hidden'); updatePapanSkorUtama(); return; } kuotaRondeHarian--; updatePapanSkorUtama(); jumlahSoalTerjawab = 0; skorSesiIni = 0; document.getElementById('layar-menu').classList.remove('hidden'); document.getElementById('layar-gameplay').classList.remove('hidden'); modeBGM = "FUN"; tempoBGM = 320; startBGM(); mainkanKataBaru(); }
+    function kembaliKeMenu() { clearInterval(intervalTimer); jumlahSoalTerjawab = 0; skorSesiIni = 0; document.getElementById('layar-hasil').classList.add('hidden'); document.getElementById('layar-gameplay').classList.add('hidden'); document.getElementById('layar-kuotaHabis').classList.add('hidden'); document.getElementById('layar-menu').classList.remove('hidden'); updatePapanSkorUtama(); modeBGM = "SANTAI"; tempoBGM = 450; startBGM(); }
     
-    function updatePapanSkorUtama() { 
-        localStorage.setItem('sunabu_skor_total', skorTotal);
-        localStorage.setItem('sunabu_kuota_harian', kuotaRondeHarian);
-        localStorage.setItem('sunabu_kuota_iklan', sisaIklanTambahanHariIni);
-        document.getElementById('menu-total-skor').innerText = `🏆 ${skorTotal} Pts`; 
-        document.getElementById('txtKuotaHarian').innerText = `Kuota: ${kuotaRondeHarian} Ronde ${isPremium ? '(Premium)' : ''}`; 
-    }
-    
+    function updatePapanSkorUtama() { localStorage.setItem('sunabu_skor_total', skorTotal); localStorage.setItem('sunabu_kuota_harian', kuotaRondeHarian); localStorage.setItem('sunabu_kuota_iklan', sisaIklanTambahanHariIni); document.getElementById('menu-total-skor').innerText = `🏆 ${skorTotal} Pts`; document.getElementById('txtKuotaHarian').innerText = `Kuota: ${kuotaRondeHarian} Ronde ${isPremium ? '(Premium)' : ''}`; }
     function bukaShop() { initAudio(); document.getElementById('shop-dompet').innerText = `Koinmu: ${skorTotal} Pts`; document.getElementById('layar-shop').classList.remove('hidden'); } function tutupShop() { document.getElementById('layar-shop').classList.add('hidden'); }
     function beliItem(n, h) { if (skorTotal >= h) { skorTotal -= h; updatePapanSkorUtama(); document.getElementById('shop-dompet').innerText = `Koinmu: ${skorTotal} Pts`; playSoundBiasa(587.33, 'sine', 0.2); if (n === 'Pena Ajaib') sisaRondePena = 3; else if (n === 'Es Krim Waktu') sisaWaktuEsKrim = 120; else if (n === 'Ramuan Multiplier') sisaRondeMultiplier = 3; alert(`🎉 Berhasil beli ${n}!`); } else { playSoundBiasa(120, 'sawtooth', 0.3); alert(`❌ Poin kurang!`); } }
-    
     function bukaRanking() { let nama = document.getElementById('input-nama-online').value.trim() || "Pemain"; let db = [ { name: "Suraya_Alter", score: 4200 }, { name: "Guru_SD_Keren", score: 3140 }, { name: "Admin_Kece", score: 2950 }, { name: "Lele_Master", score: 2100 }, { name: "Kangkung_Urb", score: 1800 }, { name: "Bocil_Kematian", score: 1530 }, { name: "Sari_Apel", score: 1250 }, { name: "Mang_Oleh", score: 980 } ]; db.push({ name: nama + " (Kamu)", score: skorTotal, isUser: true }); db.sort((a, b) => b.score - a.score); let h = ""; db.forEach((p, i) => h += `<tr ${p.isUser ? "class='user-highlight'" : ""}><td>${i + 1}</td><td>${p.name}</td><td>${p.score}</td></tr>`); document.getElementById('konten-tabel-ranking').innerHTML = h; document.getElementById('layar-ranking').classList.remove('hidden'); }
     function tutupRanking() { document.getElementById('layar-ranking').classList.add('hidden'); }
-    
     function hitungRiwayatKlaim() { let m = Math.ceil(new Date().getDate() / 7), d = JSON.parse(localStorage.getItem('sunabu_claim_history') || "{}"); return d[m] || 0; }
     function bukaHadiah() { document.getElementById('hadiah-dompet').innerText = `Koinmu: ${skorTotal} Pts`; document.getElementById('hadiah-limit-teks').innerText = `Limit Hadiah: ${hitungRiwayatKlaim()} / 2 Minggu Ini`; let btn300 = document.getElementById('btn-dana-300'); if (localStorage.getItem('sunabu_dana300_claimed') === 'true' && btn300) { btn300.disabled = true; btn300.innerText = "Sudah Diklaim"; btn300.style.background = "#636e72"; btn300.style.boxShadow = "none"; document.getElementById('item-dana-300').style.opacity = "0.6"; } document.getElementById('layar-hadiah').classList.remove('hidden'); document.getElementById('form-hp-hadiah').classList.add('hidden'); }
     function tutupHadiah() { document.getElementById('layar-hadiah').classList.add('hidden'); }
     function pilihHadiah(n, b) { if (n.includes('300') && localStorage.getItem('sunabu_dana300_claimed') === 'true') return alert("⚠️ Promo ini cuma 1x klaim per akun!"); if (hitungRiwayatKlaim() >= 2) return alert("⚠️ Limit 2x seminggu tercapai! Coba lagi minggu depan."); if (skorTotal >= b) { penampungHadiahDipilih = { nama: n, biaya: b }; document.getElementById('teks-konfirmasi-hadiah').innerText = `Tukar: ${n} (${b} Pts)`; document.getElementById('form-hp-hadiah').classList.remove('hidden'); document.getElementById('input-nomor-hp').focus(); } else alert("❌ Poin belum cukup!"); }
-
     function prosesKirimHadiah() { let hp = document.getElementById('input-nomor-hp').value.trim(), nm = document.getElementById('input-nama-online').value.trim() || "Pemain"; if (hp.length < 10) return alert("❌ Nomor tujuan tidak valid!"); let m = Math.ceil(new Date().getDate() / 7), d = JSON.parse(localStorage.getItem('sunabu_claim_history') || "{}"); d[m] = (d[m] || 0) + 1; localStorage.setItem('sunabu_claim_history', JSON.stringify(d)); let pfx = "REWARD"; if (penampungHadiahDipilih.nama === 'Saldo DANA Rp 300') { pfx = "DANA300"; localStorage.setItem('sunabu_dana300_claimed', 'true'); } else if (penampungHadiahDipilih.nama === 'Pulsa Rp 5.000') { pfx = "PLS5"; } else if (penampungHadiahDipilih.nama === 'Saldo DANA Rp 10.000') { pfx = "DANA10"; } else if (penampungHadiahDipilih.nama === 'ShopeePay Rp 10.000') { pfx = "SPAY10"; } skorTotal -= penampungHadiahDipilih.biaya; updatePapanSkorUtama(); let duaAwal = hp.substring(0, 2); let duaAkhir = hp.substring(hp.length - 2); let wu = Date.now().toString(), gd = hp + pfx + wu + "SUNABU_RAHASIA", hd = 0; for (let i = 0; i < gd.length; i++) { hd = (hd << 5) - hd + gd.charCodeAt(i); hd |= 0; } let hashUnik = Math.abs(hd).toString(36).substring(0, 3).toUpperCase(); let kodeSidikJari = duaAwal + hashUnik + duaAkhir; let kodeKlaimResmi = `SNB-${pfx}-${kodeSidikJari}`; document.getElementById('hadiah-dompet').innerText = `Koinmu: ${skorTotal} Pts`; let urlWhatsApp = `https://wa.me/6283831101199?text=${encodeURIComponent(`Halo Admin, KLAIM HADIAH! 🎉\n🆔 KODE: ${kodeKlaimResmi}\n👤 Nama: ${nm}\n🎁 Hadiah: ${penampungHadiahDipilih.nama}\n📱 Tujuan: ${hp}\n\n*Saya melampirkan Screenshot Game sebagai bukti sah.*`)}`; alert(`🚀 [PENGALIHAN KLAIM]\nKode Unik: ${kodeKlaimResmi}\n\n⚠️ PENTING: Jangan lupa kirimkan bukti SCREENSHOT GAME ke WA Admin agar proses cair!\n\nKamu akan diarahkan ke WhatsApp Admin.`); window.open(urlWhatsApp, '_blank'); document.getElementById('form-hp-hadiah').classList.add('hidden'); document.getElementById('input-nomor-hp').value = ""; tutupHadiah(); }
-    
     function tambahKuotaViaIklan() { if (sisaIklanTambahanHariIni > 0) { alert(`📺 Iklan Sukses! +2 Ronde.\nSisa iklan: ${sisaIklanTambahanHariIni - 1}x`); kuotaRondeHarian += 2; sisaIklanTambahanHariIni--; updatePapanSkorUtama(); document.getElementById('layar-kuotaHabis').classList.add('hidden'); document.getElementById('layar-menu').classList.remove('hidden'); } else alert("⚠️ Jatah iklan habis! Kembali besok."); }
     function akhiriGameInstan() { if (confirm("Kembali ke menu?")) kembaliKeMenu(); }
     function tutupAplikasiTotal() { if (confirm("Tutup SUNABU?")) { document.getElementById('layar-menu').classList.add('hidden'); document.getElementById('layar-keluar-total').classList.remove('hidden'); clearInterval(bgmInterval); } }
     function toggleMute() { initAudio(); audioMuted = !audioMuted; document.getElementById('btn-audio-global').innerText = audioMuted ? "🔇" : "🔈"; if(!audioMuted && !bgmInterval) startBGM(); }
     document.getElementById('jawaban-user').addEventListener("keydown", e => { if(e.key === "Enter") { e.preventDefault(); document.getElementById('btn-pemicu-tebak').click(); } });
 
-    // ID PEMAIN AUTO-SAVE
+    // 🔥 LIMIT GANTI NAMA 🔥
     let idTersimpan = localStorage.getItem('sunabu_id_pemain');
     let inputNama = document.getElementById('input-nama-online');
+
     if (idTersimpan) {
         inputNama.value = idTersimpan;
     } else {
-        inputNama.value = "Player_" + Math.floor(Math.random() * 9999);
+        let namaAwal = "Player_" + Math.floor(Math.random() * 9999);
+        inputNama.value = namaAwal;
+        localStorage.setItem('sunabu_id_pemain', namaAwal);
     }
-    inputNama.addEventListener("input", function() {
-        localStorage.setItem('sunabu_id_pemain', this.value);
+
+    inputNama.addEventListener("change", function() {
+        let namaBaru = this.value.trim();
+        let namaLama = localStorage.getItem('sunabu_id_pemain');
+        if (namaBaru === "" || namaBaru === namaLama) { this.value = namaLama; return; }
+        let bulanSekarang = new Date().getMonth() + "-" + new Date().getFullYear();
+        let dataGantiNama = JSON.parse(localStorage.getItem('sunabu_ganti_nama') || '{"bulan": "", "count": 0}');
+        if (dataGantiNama.bulan !== bulanSekarang) { dataGantiNama = { bulan: bulanSekarang, count: 0 }; }
+        if (dataGantiNama.count >= 2) { alert("❌ Batas ganti nama habis! Kamu hanya bisa ganti nama 2x dalam sebulan."); this.value = namaLama; 
+        } else {
+            if (confirm(`Yakin ganti nama jadi "${namaBaru}"?\nKesempatan ganti nama bulan ini sisa: ${1 - dataGantiNama.count}x lagi.`)) {
+                dataGantiNama.count++;
+                localStorage.setItem('sunabu_ganti_nama', JSON.stringify(dataGantiNama));
+                localStorage.setItem('sunabu_id_pemain', namaBaru);
+                alert("✅ Nama berhasil diganti!");
+            } else { this.value = namaLama; }
+        }
     });
 
-    // ANTI KLIK KANAN 
     document.addEventListener('contextmenu', event => event.preventDefault());
-
-    // JALANKAN SAAT AWAL DIBUKA
     cekStatusPremiumLokal(); 
 </script>
 
