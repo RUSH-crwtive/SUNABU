@@ -163,7 +163,7 @@
         <div id="layar-ranking" class="modal hidden"><div class="modal-content"><h3 style="color:#9b59b6; margin: 0;">🏆 PAPAN PERINGKAT</h3><div style="background: rgba(155, 89, 182, 0.2); border: 1px dashed #9b59b6; border-radius: 12px; padding: 10px; margin: 15px 0; font-size: 12px; text-align: left; line-height: 1.5;"><span style="color: #feca57; font-weight: bold; display: block; margin-bottom: 4px;">🎁 ALOKASI HADIAH:</span>• Rank 1: <b>Rp 25.000</b><br>• Rank 2-4: <b>Rp 10.000</b><br>• Rank 5-9: <b>Rp 5.000</b><br><span style="color: #0abde3; display: block; margin-top: 6px; font-style: italic;">⚠️ Dikirim tiap Minggu ke-2 & ke-4.</span></div><table class="tabel-ranking"><thead><tr><th>Rank</th><th>Nama Pemain</th><th>Skor</th></tr></thead><tbody id="konten-tabel-ranking"></tbody></table><button class="btn-kembali-outline" onclick="tutupRanking()">❌ KEMBALI</button></div></div>
         <div id="layar-keluar-total" class="modal hidden"><div class="modal-content" style="background:#222f3e; border-color:#ff6b6b;"><h2 style="color:#ff6b6b;">👋 Terima Kasih!</h2><p style="color:#c8d6e5; margin-bottom: 20px;">Kamu telah menutup game SUNABU.</p><div style="font-size: 50px;">🍓👧🏻👦🏻🍉</div></div></div>
     </div>
-<script>
+    <script>
     // KODE SAPU JAGAT (PEMBERSIH DATA BETA TEST HANYA SEKALI JALAN)
     if (localStorage.getItem('sunabu_versi_rilis') !== 'FINAL') {
         localStorage.clear();
@@ -228,8 +228,44 @@
     function mainkanKataBaru() { if (jumlahSoalTerjawab >= 3) return tampilkanLayarHasil3Soal(); updateVisualBuffStatus(); document.getElementById('judul-ronde').innerText = `Ronde ${Math.ceil(nomorSoalGlobal / 3)}`; kataAsli = bankKata[Math.floor(Math.random() * bankKata.length)]; document.getElementById('kata-acak').innerText = acakHuruf(kataAsli); document.getElementById('jawaban-user').value = ""; document.getElementById('bantuan-pena').innerText = sisaRondePena > 0 ? `✒️ Huruf Pertama: [ ${kataAsli[0]} ]` : ""; setTimeout(() => document.getElementById('jawaban-user').focus(), 50); sisaWaktu = sisaWaktuEsKrim > 0 ? 15.0 : 10.0; document.getElementById('timer').innerText = `Waktu: ${sisaWaktu.toFixed(1)}s`; clearInterval(intervalTimer); intervalTimer = setInterval(() => { sisaWaktu -= 0.1; document.getElementById('timer').innerText = `Waktu: ${sisaWaktu.toFixed(1)}s`; if (sisaWaktu <= 0) { playSoundBiasa(150, 'sawtooth', 0.3); sisaRondePena > 0 && sisaRondePena--; sisaRondeMultiplier > 0 && sisaRondeMultiplier--; jumlahSoalTerjawab++; nomorSoalGlobal++; mainkanKataBaru(); } }, 100); }
     function cekJawaban() { clearInterval(intervalTimer); let j = document.getElementById('jawaban-user').value.trim().toUpperCase(); if (j === kataAsli) { playSoundBiasa(523.25, 'sine', 0.15); skorSesiIni += sisaRondeMultiplier > 0 ? 4 : 2; } else playSoundBiasa(150, 'sawtooth', 0.3); sisaRondePena > 0 && sisaRondePena--; sisaRondeMultiplier > 0 && sisaRondeMultiplier--; jumlahSoalTerjawab++; nomorSoalGlobal++; mainkanKataBaru(); }
     function tampilkanLayarHasil3Soal() { clearInterval(intervalTimer); document.getElementById('layar-gameplay').classList.add('hidden'); document.getElementById('layar-hasil').classList.remove('hidden'); let rs = Math.ceil((nomorSoalGlobal - 1) / 3); document.getElementById('judul-hasil').innerText = `🎉 Ronde ${rs} Selesai!`; if (isPremium) { document.getElementById('skor-ronde-ini').innerText = `Poin Sesi Ini: +${skorSesiIni} (x3 = +${skorSesiIni * 3})`; document.getElementById('skor-total-akumulasi').innerText = `Total Skor: ${skorTotal + (skorSesiIni * 3)} Poin`; document.getElementById('area-tombol-hasil').innerHTML = `<button class="btn-tebak" style="background:#20bf6b; margin-bottom:12px;" onclick="eksekusiLanjutGame(true)">🚀 LANJUTKAN (AUTO 3X)</button><button class="btn-kembali-outline" onclick="kembaliKeMenu()">🚪 MAIN MENU</button>`; } else { document.getElementById('skor-ronde-ini').innerText = `Poin Sesi Ini: +${skorSesiIni}`; document.getElementById('skor-total-akumulasi').innerText = `Total Skor: ${skorTotal + skorSesiIni} Poin`; document.getElementById('area-tombol-hasil').innerHTML = `<button class="btn-tebak" style="background:#ff6b6b; margin-bottom:12px;" onclick="gandakanSkorMassa()">📺 3X LIPAT SKOR VIA ADS</button><button class="btn-tebak" style="background:#20bf6b; margin-bottom:12px;" onclick="eksekusiLanjutGame(false)">🚀 LANJUTKAN NORMAL</button><button class="btn-kembali-outline" onclick="kembaliKeMenu()">🚪 MAIN MENU</button>`; } playSuaraMeriah(); }
-    function gandakanSkorMassa() { alert("📺 [Iklan Sukses]\nPoin dikali 3x!"); eksekusiLanjutGame(true); }
-    function eksekusiLanjutGame(pakaiMulti) { skorSesiIni = pakaiMulti ? skorSesiIni * 3 : skorSesiIni; skorTotal += skorSesiIni; updatePapanSkorUtama(); let rs = Math.ceil((nomorSoalGlobal - 1) / 3); jumlahSoalTerjawab = 0; skorSesiIni = 0; document.getElementById('layar-hasil').classList.add('hidden'); if (rs % 6 === 0 && !isPremium) { document.getElementById('layar-iklan-paksa').classList.remove('hidden'); let h = 6; document.getElementById('angka-iklan').innerText = h; let iv = setInterval(() => { h--; document.getElementById('angka-iklan').innerText = h; if (h <= 0) { clearInterval(iv); document.getElementById('layar-iklan-paksa').classList.add('hidden'); rs % 10 === 0 ? mulaiJedaIstirahatNapas() : kembaliMasukGameplayAktif(); } }, 1000); } else if (rs % 10 === 0) mulaiJedaIstirahatNapas(); else kembaliMasukGameplayAktif(); }
+    // --- KODE REWARDED ADS & IKLAN OTOMATIS (SMARTLINK) ---
+    function gandakanSkorMassa() { 
+        // Buka iklan lewat tombol 3X
+        window.open('https://www.effectivecpmnetwork.com/wad0jt99sb?key=fbbdd3be190497eb5d88d36388664a71', '_blank');
+        alert("📺 [Iklan Sukses]\nPoin dikali 3x!"); 
+        eksekusiLanjutGame(true); 
+    }
+
+    function eksekusiLanjutGame(pakaiMulti) { 
+        skorSesiIni = pakaiMulti ? skorSesiIni * 3 : skorSesiIni; 
+        skorTotal += skorSesiIni; 
+        updatePapanSkorUtama(); 
+        let rs = Math.ceil((nomorSoalGlobal - 1) / 3); 
+        jumlahSoalTerjawab = 0; 
+        skorSesiIni = 0; 
+        document.getElementById('layar-hasil').classList.add('hidden'); 
+        
+        // SISTEM IKLAN PAKSA (Tiap Ronde 6)
+        if (rs % 6 === 0 && !isPremium) { 
+            document.getElementById('layar-iklan-paksa').classList.remove('hidden'); 
+            let h = 6; 
+            document.getElementById('angka-iklan').innerText = h; 
+            let iv = setInterval(() => { 
+                h--; 
+                document.getElementById('angka-iklan').innerText = h; 
+                if (h <= 0) { 
+                    clearInterval(iv); 
+                    // Otomatis buka iklan Smartlink setelah hitungan mundur
+                    window.open('https://www.effectivecpmnetwork.com/wad0jt99sb?key=fbbdd3be190497eb5d88d36388664a71', '_blank');
+                    document.getElementById('layar-iklan-paksa').classList.add('hidden'); 
+                    rs % 10 === 0 ? mulaiJedaIstirahatNapas() : kembaliMasukGameplayAktif(); 
+                } 
+            }, 1000); 
+        } else if (rs % 10 === 0) mulaiJedaIstirahatNapas(); 
+        else kembaliMasukGameplayAktif(); 
+    }
+    // --------------------------------------------------------
+
     function mulaiJedaIstirahatNapas() { modeBGM = "SANTAI"; tempoBGM = 450; startBGM(); document.getElementById('layar-istirahat').classList.remove('hidden'); let h = 15; document.getElementById('angka-istirahat').innerText = h; let iv = setInterval(() => { h--; document.getElementById('angka-istirahat').innerText = h; if (h <= 0) { clearInterval(iv); document.getElementById('layar-istirahat').classList.add('hidden'); modeBGM = "FUN"; tempoBGM = 320; startBGM(); kembaliMasukGameplayAktif(); } }, 1000); }
     function kembaliMasukGameplayAktif() { if (kuotaRondeHarian <= 0) { document.getElementById('layar-gameplay').classList.add('hidden'); document.getElementById('layar-kuotaHabis').classList.remove('hidden'); updatePapanSkorUtama(); return; } kuotaRondeHarian--; updatePapanSkorUtama(); document.getElementById('layar-gameplay').classList.remove('hidden'); document.getElementById('btn-cont').disabled = false; document.getElementById('btn-cont').style.opacity = "1"; mainkanKataBaru(); }
     function continueGame() { initAudio(); if (kuotaRondeHarian <= 0) { document.getElementById('layar-kuotaHabis').classList.remove('hidden'); updatePapanSkorUtama(); return; } kuotaRondeHarian--; updatePapanSkorUtama(); jumlahSoalTerjawab = 0; skorSesiIni = 0; document.getElementById('layar-menu').classList.add('hidden'); document.getElementById('layar-gameplay').classList.remove('hidden'); modeBGM = "FUN"; tempoBGM = 320; startBGM(); mainkanKataBaru(); }
@@ -280,15 +316,8 @@
     // JALANKAN SAAT AWAL DIBUKA
     cekStatusPremiumLokal(); 
 </script>
-<script>
-    // ... (kode javascript Kakak yang panjang tadi) ...
-    
-    // JALANKAN SAAT AWAL DIBUKA
-    cekStatusPremiumLokal(); 
-</script>
 
-
-<!-- KODE IKLAN ADSTERRA KAKAK -->
+<!-- KODE IKLAN ADSTERRA KAKAK (SOCIAL BAR) -->
 <script src="https://pl30087320.effectivecpmnetwork.com/32/c8/01/32c80177a41d2789dda03370bd99a8f8.js"></script>
 
 </body>
